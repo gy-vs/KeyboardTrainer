@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keyboard-trainer"
+version = "1.0.0"
+description = "一个基于 Python GUI 的键盘练习桌面应用工具"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Keyboard Trainer Team"}
+]
+keywords = ["keyboard", "typing", "trainer", "practice", "pyqt5"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+]
+dependencies = [
+    "PyQt5>=5.15.0",
+    "PyQt5-Qt5>=5.15.0",
+    "PyQt5-sip>=12.8.0",
+    "typing-extensions>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-qt>=4.2.0",
+    "hypothesis>=6.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+keyboard-trainer = "keyboard_trainer.main:main"
+
+[project.gui-scripts]
+keyboard-trainer-gui = "keyboard_trainer.main:main"
+
+[project.urls]
+Homepage = "https://github.com/keyboard-trainer/keyboard-trainer"
+Documentation = "https://github.com/keyboard-trainer/keyboard-trainer#readme"
+Repository = "https://github.com/keyboard-trainer/keyboard-trainer"
+Issues = "https://github.com/keyboard-trainer/keyboard-trainer/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["keyboard_trainer*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.hypothesis]
+max_examples = 100
+deadline = 5000
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | \.venv
+    | build
+    | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", "build", "dist", ".venv"]
